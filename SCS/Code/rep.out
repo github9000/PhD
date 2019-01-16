@@ -1,0 +1,176 @@
+
+          -----------------------------------------------------------
+          |       SCS-C (v1.0) - A Simple Classifier System         |
+          |    (c) David E. Goldberg 1987, All Rights Reserved      |
+          |    C version by Kenneth P. Williams, U. of Reading      |
+          -----------------------------------------------------------
+
+
+
+Population Parameters
+---------------------
+Number of classifiers   = 10
+Number of positions   = 6
+Bid coefficient = 0.100000
+Bid spread = 0.075000
+Bidding tax = 0.010000
+Existence tax = 0.000000
+Generality probability = 0.500000
+Bid specificity base = 1.000000
+Bid specificity mult. = 0.000000
+Ebid specificity base = 1.000000
+Ebid specificity mult. = 0.000000
+
+
+Environmental Parameters (Multiplexor)
+--------------------------------------
+Number of Address Lines = 2
+Number of Data Lines = 4
+Total Number of Lines = 6
+
+
+Apportionment of Credit Parameters
+----------------------------------
+Bucketbrigadeflag   =  False
+
+
+Reinforcement Parameters
+------------------------
+Reinforcement reward  =  1.000000
+
+
+Timekeeper Parameters
+---------------------
+Initial iteration         = 0
+Initial block  = 0
+Report period = 2000
+Console report period = 50
+Plot report period = 50
+GA period = -1
+
+
+Genetic Algorithm Parameters
+----------------------------
+Proportion to select/gen  = 0.200000
+Number to select  = 1
+Mutation Probability = 0.020000
+Crossover Probability = 1.000000
+Crowding Factor = 3
+Crowding Subpopulation = 3
+
+Snapshot report
+---------------
+
+[ Block : Iteration] = [ 0 : 0 ]
+
+
+Current Multiplexor Status
+--------------------------
+Signal                =  0  0  0  0  0  0 
+Decoded address       = 0
+Multiplexor output    = 0
+Classifier output     = 0
+
+Environmental message:   000000
+
+  No.   Strength       bid   ebid    M   Classifier
+--------------------------------------------------
+
+     1  10.00000  0.00000  0.00000    ###000: [ 0 ]
+     2  10.00000  0.00000  0.00000    ###100: [ 1 ]
+     3  10.00000  0.00000  0.00000    ##0#01: [ 0 ]
+     4  10.00000  0.00000  0.00000    ##1#01: [ 1 ]
+     5  10.00000  0.00000  0.00000    #0##10: [ 0 ]
+     6  10.00000  0.00000  0.00000    #1##10: [ 1 ]
+     7  10.00000  0.00000  0.00000    0###11: [ 0 ]
+     8  10.00000  0.00000  0.00000    1###11: [ 1 ]
+     9  10.00000  0.00000  0.00000    ######: [ 0 ]
+    10  10.00000  0.00000  0.00000    ######: [ 1 ]
+
+
+New winner [1] : Old winner [1]
+
+
+Reinforcement Report
+--------------------
+Proportion correct (from start) = 0.000000
+Proportion correct (last 50) = 0.000000
+Last winning classifier number  = 0
+
+Snapshot report
+---------------
+
+[ Block : Iteration] = [ 0 : 2000 ]
+
+
+Current Multiplexor Status
+--------------------------
+Signal                =  0  0  1  1  0  1 
+Decoded address       = 1
+Multiplexor output    = 1
+Classifier output     = 1
+
+Environmental message:   001101
+
+  No.   Strength       bid   ebid    M   Classifier
+--------------------------------------------------
+
+     1  9.09091  0.90909  1.03956    ###000: [ 0 ]
+     2  9.09091  0.90909  0.82836    ###100: [ 1 ]
+     3  9.09091  0.90909  0.91054    ##0#01: [ 0 ]
+     4  9.09091  0.90909  0.96905  X ##1#01: [ 1 ]
+     5  9.09091  0.90909  0.84879    #0##10: [ 0 ]
+     6  9.09091  0.90909  0.97096    #1##10: [ 1 ]
+     7  9.09091  0.90909  0.95323    0###11: [ 0 ]
+     8  9.09091  0.90909  0.95478    1###11: [ 1 ]
+     9  0.00000  0.00000  0.06038  X ######: [ 0 ]
+    10  0.00000  0.00000  0.02542  X ######: [ 1 ]
+
+
+New winner [4] : Old winner [5]
+
+
+Reinforcement Report
+--------------------
+Proportion correct (from start) = 0.999000
+Proportion correct (last 50) = 1.000000
+Last winning classifier number  = 4
+
+Snapshot report
+---------------
+
+[ Block : Iteration] = [ 0 : 2000 ]
+
+
+Current Multiplexor Status
+--------------------------
+Signal                =  0  0  1  1  0  1 
+Decoded address       = 1
+Multiplexor output    = 1
+Classifier output     = 1
+
+Environmental message:   001101
+
+  No.   Strength       bid   ebid    M   Classifier
+--------------------------------------------------
+
+     1  9.09091  0.90909  1.03956    ###000: [ 0 ]
+     2  9.09091  0.90909  0.82836    ###100: [ 1 ]
+     3  9.09091  0.90909  0.91054    ##0#01: [ 0 ]
+     4  9.09091  0.90909  0.96905  X ##1#01: [ 1 ]
+     5  9.09091  0.90909  0.84879    #0##10: [ 0 ]
+     6  9.09091  0.90909  0.97096    #1##10: [ 1 ]
+     7  9.09091  0.90909  0.95323    0###11: [ 0 ]
+     8  9.09091  0.90909  0.95478    1###11: [ 1 ]
+     9  0.00000  0.00000  0.06038  X ######: [ 0 ]
+    10  0.00000  0.00000  0.02542  X ######: [ 1 ]
+
+
+New winner [4] : Old winner [4]
+
+
+Reinforcement Report
+--------------------
+Proportion correct (from start) = 0.999000
+Proportion correct (last 50) = 1.000000
+Last winning classifier number  = 4

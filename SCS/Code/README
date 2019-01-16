@@ -1,0 +1,52 @@
+SCS-C: A C-language Implementation 
+of a Simple Classifier System
+
+Kenneth P. Williams
+The University of Reading
+RUCS Report No. 91002
+Parallel, Emergent and Distributed
+Architectures Laboratory (PEDAL),
+The University of Reading
+Department of Computer Science,  
+Berkshire, ENGLAND RG6 6AY
+
+
+SCS-C is a C-language translation and extension of the original
+Pascal SCS code presented in Goldberg's text (Goldberg, 1989). 
+It has some additional features, but its operation is 
+essentially the same as that of the original, Pascal version. 
+A technical report (in PostScript file scs-c.ps) 
+is included as a concise introduction 
+to the SCS-C distribution. It is presented with the assumptions that 
+the reader has a general understanding of Goldberg's original Pascal SCS 
+code, and a good working knowledge of the C programming language.
+The report begins with an outline of the files included in the SCS-C
+distribution, and the routines they contain. 
+The outline is followed by a discussion of significant features of SCS-C
+that differ from those of the Pascal version.
+
+
+The author is interested in the comments, criticisms, and bug reports
+from SCS-C users, so that the code can be refined for easier use in 
+subsequent versions. Please email your comments to 
+K.P.Williams@reading.ac.uk, or write to:
+
+The University of Reading,   
+Department of Computer Science, 
+Parallel, Emergent and Distributed
+Architectures Laboratory (PEDAL),
+PO Box 225, Whiteknights, Reading,
+Berkshire, ENGLAND RG6 6AY
+
+
+References:
+Goldberg, D.E. (1989). Genetic algorithms in search, optimization, and
+machine learning. Reading, MA: Addison-Wesley. 
+
+Smith, R.E., Goldberg, D.E., and Earickson J.A., (1994). 
+SGA-C: A C-language Implementation  of a Simple Genetic Algorithm,
+TCGA Report No. 91002
+The Clearinghouse for Genetic Algorithms
+The University of Alabama
+Department of Engineering Mechanics
+Tuscaloosa, AL 35487

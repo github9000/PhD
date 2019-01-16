@@ -1,0 +1,701 @@
+% Latex 'old' style.
+\documentstyle[11pt]{article}
+
+ 
+\begin{document}
+
+\vbadness=10000 % Turns off the Under full \vbox warnings
+
+\oddsidemargin=0.6in
+\evensidemargin=0.7in
+\setlength{\textwidth}{8in}
+\setlength{\headsep}{0in}
+
+ 
+\begin{titlepage}
+  \vspace*{\stretch{55}}
+  \begin{center}
+   
+   \large {\bf SCS-C: A C-language Implementation of a}\\
+   \large {\bf Simple Classifier System}\\[10mm]
+
+   \large {\bf K.P.Williams and S.A.Williams}\\[7mm]
+
+   \large RUCS/98/TR999/X \\[40mm]
+   \Large {\bf University of Reading}\\[3mm]
+   \Large {\bf Department of Computer Science}\\[3mm]
+   \Large {\bf Parallel, Emergent and Distributed}\\
+   \Large {\bf Architectures Laboratory}\\
+   \Large {\bf (PEDAL) Group}\\[5mm]
+   \large \today\\
+  \end{center}
+ \vspace*{\stretch{2}}
+ 
+\textheight=8in
+
+\end{titlepage}
+
+\oddsidemargin=0.7in
+\textwidth=5.0in
+\evensidemargin=0.4in
+\marginparwidth=71pt
+
+
+\title{\bf
+   \large {\bf SCS-C: A C-language Implementation of a}\\
+   \large {\bf Simple Classifier System}
+       }
+\author{
+{\sc Kenneth P. Williams and Shirley A. Williams}   \\
+Department of Computer Science, \\
+University of Reading, \\
+PO Box 225, Whiteknights, Reading, UK, RG6 6AY\\
+}
+ 
+\maketitle
+
+\pagenumbering{arabic}
+
+\setcounter{page}{1}
+
+\textheight=8in
+
+\section{Introduction}
+
+  SCS-C\footnote{{\bf Disclaimer:} SCS-C is distributed
+under the terms described in the file
+\verb!NOWARRANTY!. These terms are taken from the GNU
+Public License. This means that SCS-C has no warranty
+implied or given, and that the authors assume no
+liability for damage resulting from its use or misuse.}
+is a pure ANSI C-language translation of the original Pascal 
+SCS code presented by Goldberg\cite{1}. It is a direct
+translation and contains no enhancements as such, it's
+operation is essentially the same as that of the
+original, Pascal version. The report is included as a
+concise introduction to the SCS-C distribution. It is
+presented with the assumptions that the reader has a
+general understanding of Goldberg's original Pascal
+code, and a good working knowledge of the C
+programming language. The report begins with an outline
+of the files included in the SCS-C distribution,
+followed by a discussion of the points of SCS-C where
+it differs from those of the Pascal version.  
+ 
+
+\section{Files Distributed with SCS-C}
+
+  The following is a list of files distributed with
+SCS-C, the routines contained within those files and
+the simple \verb!#include! structure of the SCS-C
+distribution. The source files that make up SCS-C essentially
+correspond one-to-one with those presented in the Pascal
+version, with the addition of a single header file
+\verb!scs.h! as described below.
+
+\begin{description}
+
+\item[\verb!scs.h!] This is the only header file used in SCS-C
+and is \verb!#include!'ed into all other source files. It
+contains several \verb!#define! definitions, notably:
+\verb!LINELENGTH!, which determines the
+column width of printed output and can be set to any desired 
+positive value. It also contains all \verb!typedef!'s, all
+\verb!struct! definitions as well as prototypes of all
+functions used in the source files.
+ 
+
+\item[\verb!advance.c!] contains code to advance all variables
+by one time step.
+  \begin{description}
+    \item[\verb!advance()!] advance winner record. 
+  \end{description}
+
+\item[\verb!aoc.c!] contains routines for the apportionment of
+credit.
+  \begin{description}
+    \item[\verb!initaoc()!] initialize clearing house record.
+    \item[\verb!initrepaoc()!] initial report of clearinghouse
+parameters.
+    \item[\verb!auction()!] auction among currently matched
+classifiers - returns the winner.
+    \item[\verb!clearinghouse()!] distribute payment from
+recent winner to oldwinner. 
+    \item[\verb!taxcollector()!] collect existence and bidding
+taxes from population members. 
+    \item[\verb!reportaoc()!] report who pays to whom. 
+    \item[\verb!aoc()!] apportionment of credit coordinator.
+  \end{description}
+
+
+
+\item[\verb!detector.c!] convert environmental states to
+environmental message.
+  \begin{description}
+    \item[\verb!detectors()!] convert environmental state to
+environmental message.
+    \item[\verb!writemessage()!] write message in bit-reverse
+order.
+    \item[\verb!reportdetectors()!] write out environmental
+message.
+    \item[\verb!initdetectors()!] dummy detector
+initialization routine.
+    \item[\verb!initrepdetectors()!] dummy initial detectors
+report.
+  \end{description}
+
+
+\item[\verb!effector.c!] contains the single effector routine.
+  \begin{description}
+    \item[\verb!effector()!] set action in classifier output
+as dictated by auction winner.
+  \end{description}
+
+
+\item[\verb!environ.c!] controls multiplexor environment.
+  \begin{description}
+    \item[\verb!generatesignal()!] generate random signal.
+    \item[\verb!decode()!] decode substring into a single
+unsigned binary value.
+    \item[\verb!multiplexoroutput()!] calculate correct
+output of the 6-input/1-output multiplexor function (described
+in Goldberg \cite{1}) being learned by SCS-C.
+    \item[\verb!initenvironment()!] initialize the multiplexor
+environment.
+    \item[\verb!initrepenvironment()!] write initial
+environmental report. 
+    \item[\verb!writesignal()!] write signal in bit-reverse
+order.
+    \item[\verb!reportenvironment()!] write current
+multiplexor info.
+  \end{description}
+
+
+\item[\verb!ga.c!] contains genetic algorithm routines for
+SCS.
+  \begin{description}
+    \item[\verb!initga()!] initialize ga parameters.
+    \item[\verb!initrepga()!] initial ga report.
+    \item[\verb!select()!] select a single individual
+according to strength.
+    \item[\verb!mutation()!] mutate a single position with
+specified probability.
+    \item[\verb!bmutation()!] mutate a single bit with
+specified probability.
+    \item[\verb!crossover()!] cross a pair at a given site
+with mutation on the ternary bit transfer. 
+    \item[\verb!worstofn()!] select worst individual from
+random subpopulation of size n. 
+    \item[\verb!matchcount()!] count number of positions of
+similarity.
+    \item[\verb!crowding()!] replacement using modified De
+Jong crowding. 
+    \item[\verb!statistics()!] contains population statistics
+routines - computes max, avg, min, sum of strength. 
+    \item[\verb!ga()!] coordinate selection, mating,
+crossover, mutation and replacement. 
+    \item[\verb!reportga()!] report on mating, crossover and
+replacement.
+  \end{description}
+
+
+
+
+\item[\verb!initial.c!] contains routines to coordinate
+program initialization.
+  \begin{description}
+    \item[\verb!initrepheader()!] write a report header to a
+specified output file/device. 
+    \item[\verb!interactiveheader()!] clear screen and print
+interactive header.
+    \item[\verb!safe\_malloc()!] memory allocation routine
+which terminates program (with an error message) on failure.
+    \item[\verb!initialization()!] coordinate input and
+initialization.
+    \item[\verb!repchar()!] repeatedly write a character to
+stdout.
+    \item[\verb!skip()!] skip lines.
+  \end{description}
+
+ 
+
+\item[\verb!io.c!] contains file input/output routines.
+  \begin{description}
+    \item[\verb!page()!] start a new page.
+    \item[\verb!open\_input()!] read filenames in interactive
+mode.
+    \item[\verb!open\_output()!] read filenames in interactive
+mode. 
+  \end{description}
+
+
+\item[\verb!perform.c!] classifier matching routines.
+  \begin{description}
+    \item[\verb!randomchar()!] set position at random with
+specified generality probability.
+    \item[\verb!readcondition()!] read a single classifier
+condition. 
+    \item[\verb!readclassifier()!] read a single classifier.
+    \item[\verb!countspecificity()!] count condition
+specificity.
+    \item[\verb!initclassifiers()!] init population of
+classifier.
+    \item[\verb!initrepclassifiers()!] initial report on
+population parameters. 
+    \item[\verb!writecondition()!] convert internal condition
+format to external format and write to file/device. 
+    \item[\verb!writeclassifier()!] write a single
+classifier.
+    \item[\verb!reportclassifiers()!] generate classifiers
+report.
+    \item[\verb!match()!] match a single condition to a single
+message.
+    \item[\verb!matchclassifiers()!] compare all classifiers
+against current environmental message and create a list of
+matches. 
+  \end{description}
+
+
+
+\item[\verb!reinfor.c!] functions for reinforcement and
+criterion.
+  \begin{description}
+    \item[\verb!initreinforcement()!] initialize reinforcement
+parameters.
+    \item[\verb!initrepreinforcement()!] initial reinforcement
+report. 
+    \item[\verb!criterion()!] return true if criterion is
+achieved.  
+    \item[\verb!payreward()!] pay reward to appropriate
+individual.  
+    \item[\verb!reportreinforcement()!] report award.
+    \item[\verb!reinforcement()!] make a payment if criterion
+is satisfied.
+  \end{description}
+
+
+\item[\verb!report.c!] report coordination functions.
+  \begin{description}
+    \item[\verb!reportheader()!] send report header to
+specified file/device.
+    \item[\verb!report()!] report coordination routine. 
+    \item[\verb!consolereport()!] write report to console.
+    \item[\verb!plotreport()!] write plot figures to file.
+  \end{description}
+
+
+\item[\verb!scs.c!] This contains the {\tt main} SCS function. 
+  \begin{description}
+    \item[\verb!main()!] 
+  \end{description}
+
+\item[\verb!timekeep.c!] contains the timekeeping routines.
+  \begin{description}
+    \item[\verb!addtime()!] increment iterations counter and
+set carry flag if necessary.
+    \item[\verb!inittimekeeper()!] initialize timekeeper.
+    \item[\verb!initreptimekeeper()!] initialize timekeeper
+report.
+    \item[\verb!timekeeper()!] keep time and set flags for
+time-driven events. 
+    \item[\verb!reporttime()!] print out block and iteration
+number. 
+  \end{description}
+
+ 
+
+\item[\verb!utility.c!] this file contains various utility
+routines including the SCS {\tt halt()} routine, and also the 
+random number utility functions, which include; 
+
+
+
+  \begin{description}
+    \item[\verb!randomperc()!] returns a single uniformly
+distributed, real, pseudo-random number between 0 and 1 using
+the subtractive method, as described by Knuth in \cite{2}. 
+    \item[\verb!rnd(low, high)!] returns a uniformly
+distributed integer between {\tt low} and {\tt high}.  
+    \item[\verb!rndreal(low, high)!] returns a uniformly
+distributed real between {\tt low} and {\tt high}.  
+    \item[\verb!warmup\_random()!] primes the random number
+generator.
+    \item[\verb!advance\_random()!]  generates batches of 55
+random numbers.
+    \item[\verb!flip(p)!] flips a biased coin, returning 1
+with probability {\tt p}, and 0 with probability {\tt 1-p}. 
+    \item[\verb!halt()!] Terminates SCS-C through prompting
+for user input.
+    \item[\verb!initrandomnormaldeviate()!] initialization
+routine for function {\tt randomnormaldeviate}.
+    \item[\verb!noise(mu, sigma)!] generates a normal random
+variable with mean {\tt mu} and standard deviation {\tt
+sigma}.  
+    \item[\verb!randomize()!] asks user for random number
+seed.
+    \item[\verb!randomnormaldeviate()!] is a utility used by
+{\tt noise} - it computes a standard normal random variable.
+  \end{description}
+
+
+
+The following are the test data files. All these are identical to
+those presented in Goldberg \cite{1}.
+
+\item[\verb!environ.dta!] This is a sample {\it efile}.
+
+\item[\verb!ga.dta!] This is a sample {\it gafile}.
+
+\item[\verb!perfect.dta!] This is a sample {\it cfile} for the
+perfect rule set experiments of Chapter 6. 
+
+\item[\verb!lessthan.dta!] This is a less than perfect 
+{\it cfile} for default  hierarchy experiments of Chapter 6.
+
+\item[\verb!reinf.dta!] This is a sample {\it rfile}.
+
+\item[\verb!time.dta!] This is a sample {\it tfile}.
+
+\item[\verb!class100.dta!] This is a sample {\it cfile} for
+the clean-slate experiments of Chapter 6. Only 10 of each
+type of rule are shown for brevity.
+
+
+\end{description}
+
+
+
+\verb!Makefile! is a simple UNIX makefile for SCS-C.
+
+\section{Implementation Features of SCS-C}
+
+\subsection{Translation Issues and Memory Utilization}
+
+  Several differences between the Pascal and ANSI-C
+programming languages forced a number of minor changes in the
+way SCS-C operates in comparison to the original SCS program.
+Firstly, in SCS-C all arrays are 1 element larger than their
+SCS originals. This is because in C all arrays are indexed
+from 0 rather than 1. Loop bounds were left unchanged to avoid
+the risk of introducing errors into the C implementation (due
+to time constraints).
+
+  Secondly, parameter passing in Pascal is achieved by
+reference rather than by value as in C. Consequently, it
+seemed easiest to make the variables in SCS-C dynamic and to
+pass parameters to/from functions so as to achieve
+call-by-reference parameter passing. This introduction of
+dynamic variables will allow easier extension of SCS-C in
+future experimentation since variables, such as population
+sizes, can be more easily varied. 
+
+  The introduction of dynamic variables also has the effect of
+moving responsibility for memory management onto the
+programmer. This can be controlled via the use of the {\tt
+safe\_malloc()}  function (defined in {\tt initial.c}) and 
+the {\it free} function (used in {\tt scs.c}).
+
+
+\subsection{Input / Output}
+
+  Most of the input {\it readln()} statements in Pascal were
+translated into equivalent {\it scanf()} calls in SCS-C.
+Program termination in the original SCS version however is
+achieved in the {\tt halt()} function (defined in {\tt
+utility.c}) via the use of Pascal {\tt kbhit()} function.
+Since no equivalent function exists in ANSI-C the solution
+implemented in SCS-C is to initially prompt the user to enter
+a number of generations the genetic algorithm is to run for
+and then simply query the user whether they wish the run to
+continue or terminate. This leads to the following input
+screen (see Fig.\ref{input}).
+
+\begin{figure}
+\begin{center}
+\begin{verbatim}
+        prompt% ./scs
+        How many generations ? : 2000
+         Enter random number seed, 0.0 to 1.0 -> 0.3333
+ 
+ 
+ 
+        |------------------------|
+             Iteration = 50
+             P correct = 0.960000
+           P50 correct = 0.960000
+        |------------------------|
+ 
+ 
+ 
+        |------------------------|
+             Iteration = 100
+             P correct = 0.980000
+           P50 correct = 1.000000
+        |------------------------|
+
+
+            . . . . . . . . . . 
+
+ 
+        |------------------------|
+             Iteration = 2000
+             P correct = 0.999000
+           P50 correct = 1.000000
+        |------------------------|
+        Halt (y/n) ? >> y
+
+
+
+\end{verbatim}
+\caption{Example SCS-C Input Screen}
+\label{input}
+\end{center}
+\end{figure}
+
+
+  Output from SCS-C is essentially identical to that of the
+original SCS implementation. Two files ({\tt plot.out} and
+{\tt rep.out}) are produced, sample outputs as in Figs.
+(\ref{parameters1}, \ref{parameters2}, \ref{gens0}, \ref{gens2000}).
+
+
+\begin{figure}
+\begin{center}
+\begin{verbatim}
+   ----------------------------------------------------------- 
+   |       SCS-C (v1.0) - A Simple Classifier System         | 
+   |    (c) David E. Goldberg 1987, All Rights Reserved      | 
+   |    C version by Kenneth P. Williams, U. of Reading      |
+   -----------------------------------------------------------
+
+ 
+   Population Parameters
+   ---------------------
+   Number of classifiers   = 10
+   Number of positions   = 6
+   Bid coefficient = 0.100000
+   Bid spread = 0.075000
+   Bidding tax = 0.010000
+   Existence tax = 0.000000
+   Generality probability = 0.500000
+   Bid specificity base = 1.000000
+   Bid specificity mult. = 0.000000
+   Ebid specificity base = 1.000000
+   Ebid specificity mult. = 0.000000
+ 
+
+   Environmental Parameters (Multiplexor)
+   --------------------------------------
+   Number of Address Lines = 2
+   Number of Data Lines = 4
+   Total Number of Lines = 6
+
+
+
+\end{verbatim}
+\caption{SCS-C Parameters Report (cont...)}
+\label{parameters1}
+\end{center}
+\end{figure}
+
+ 
+\begin{figure}
+\begin{center}
+\begin{verbatim}
+   Apportionment of Credit Parameters
+   ----------------------------------
+   Bucketbrigadeflag   =  False
+
+ 
+   Reinforcement Parameters
+   ------------------------
+   Reinforcement reward  =  1.000000
+
+ 
+   Timekeeper Parameters
+   ---------------------
+   Initial iteration         = 0
+   Initial block  = 0
+   Report period = 2000
+   Console report period = 50
+   Plot report period = 50
+   GA period = -1
+
+ 
+   Genetic Algorithm Parameters
+   ----------------------------
+   Proportion to select/gen  = 0.200000
+   Number to select  = 1
+   Mutation Probability = 0.020000
+   Crossover Probability = 1.000000
+   Crowding Factor = 3
+   Crowding Subpopulation = 3
+
+
+\end{verbatim}
+\caption{SCS-C Parameters Report}
+\label{parameters2}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}
+\begin{center}
+\begin{verbatim}
+   Snapshot report
+   ---------------
+ 
+   [ Block : Iteration] = [ 0 : 0 ]
+ 
+ 
+   Current Multiplexor Status
+   --------------------------
+   Signal                =  0  0  0  0  0  0
+   Decoded address       = 0
+   Multiplexor output    = 0
+   Classifier output     = 0
+ 
+   Environmental message:   000000
+ 
+     No.   Strength       bid   ebid    M   Classifier
+   --------------------------------------------------
+ 
+        1  10.00000  0.00000  0.00000    ###000: [ 0 ]
+        2  10.00000  0.00000  0.00000    ###100: [ 1 ]
+        3  10.00000  0.00000  0.00000    ##0#01: [ 0 ]
+        4  10.00000  0.00000  0.00000    ##1#01: [ 1 ]
+        5  10.00000  0.00000  0.00000    #0##10: [ 0 ]
+        6  10.00000  0.00000  0.00000    #1##10: [ 1 ]
+        7  10.00000  0.00000  0.00000    0###11: [ 0 ]
+        8  10.00000  0.00000  0.00000    1###11: [ 1 ]
+        9  10.00000  0.00000  0.00000    ######: [ 0 ]
+       10  10.00000  0.00000  0.00000    ######: [ 1 ]
+ 
+ 
+   New winner [1] : Old winner [1]
+ 
+ 
+   Reinforcement Report
+   --------------------
+   Proportion correct (from start) = 0.000000
+   Proportion correct (last 50) = 0.000000
+   Last winning classifier number  = 0
+
+
+\end{verbatim}
+\caption{Report on SCS-C After 0 Generations}
+\label{gens0}
+\end{center}
+\end{figure}
+ 
+
+
+\begin{figure}
+\begin{center}
+\begin{verbatim}
+   Snapshot report
+   ---------------
+ 
+   [ Block : Iteration] = [ 0 : 2000 ]
+ 
+ 
+   Current Multiplexor Status
+   --------------------------
+   Signal                =  0  0  1  1  0  1
+   Decoded address       = 1
+   Multiplexor output    = 1
+   Classifier output     = 1
+ 
+   Environmental message:   001101
+ 
+     No.   Strength       bid   ebid    M   Classifier
+   --------------------------------------------------
+ 
+        1  9.09091  0.90909  1.03956    ###000: [ 0 ]
+        2  9.09091  0.90909  0.82836    ###100: [ 1 ]
+        3  9.09091  0.90909  0.91054    ##0#01: [ 0 ]
+        4  9.09091  0.90909  0.96905  X ##1#01: [ 1 ]
+        5  9.09091  0.90909  0.84879    #0##10: [ 0 ]
+        6  9.09091  0.90909  0.97096    #1##10: [ 1 ]
+        7  9.09091  0.90909  0.95323    0###11: [ 0 ]
+        8  9.09091  0.90909  0.95478    1###11: [ 1 ]
+        9  0.00000  0.00000  0.06038  X ######: [ 0 ]
+       10  0.00000  0.00000  0.02542  X ######: [ 1 ]
+ 
+ 
+   New winner [4] : Old winner [5]
+ 
+ 
+   Reinforcement Report
+   --------------------
+   Proportion correct (from start) = 0.999000
+   Proportion correct (last 50) = 1.000000
+   Last winning classifier number  = 4
+
+
+\end{verbatim}
+\caption{Report on SCS-C After 2000 Generations}
+\label{gens2000}
+\end{center}
+\end{figure}
+ 
+ The SCS code may be easily adapted to operate in interactive
+mode (as indicated at points in {\tt initialize.c} and {\tt
+scs.c}).
+
+\section{Final Comments}
+
+  SCS-C is intended to be a simple program for first
+time classifier system experimentation. It is not
+intended to be definitive in terms of its efficiency
+or the grace of its implementation. The
+authors are interested in the comments, criticisms, and bug
+reports
+from SCS-C users, so that the code can be refined for
+easier use in subsequent versions.
+Please email your comments to {\bf K.P.Williams@reading.ac.uk},
+or write to:
+
+\begin{center} 
+Ken Williams,   \\
+University of Reading,             \\
+Department of Computer Science,    \\
+Parallel, Emergent and Distributed\\
+Architectures Laboratory (PEDAL),\\
+PO Box 225, Whiteknights, Reading,\\
+Berkshire, ENGLAND RG6 6AY\\
+\end{center} 
+ 
+
+\subsection*{Acknowledgments}
+
+  Ken Williams gratefully acknowledges the support of the
+Engineering and Physical Sciences Research Council (EPSRC)
+of Great Britain under grant number 94701308, and also of support
+from the Department of Computer Science, University of Reading.  
+
+\newpage
+
+\begin{thebibliography}{99}
+
+\bibitem[1]{1} Goldberg, D.E., {\it Genetic Algorithms
+in Search Optimization and Machine Learning},
+Addison-Wesley, Reading: MA, (1989). 
+
+\bibitem[2]{2} Knuth, D.E., {\it The Art of Computer
+Programming}, Vol. 2, (2nd Edition), Addison-Wesley, Reading:
+MA, (1981).
+
+\bibitem[3]{3} Smith R.E, Goldberg D.E., and
+Earickson, J.A, {\it  SGA-C: A C-language
+Implementation of a Simple Genetic Algorithm},
+TCGA Report No. 91002, The Clearing House for Genetic
+Algorithms, Dept. of Engineering Mechanics, U. of Alabama, 
+Tuscaloosa, AL 35487, (1994).
+
+\end{thebibliography}
+
+\end{document}
+
+
